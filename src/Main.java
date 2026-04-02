@@ -1,45 +1,28 @@
-import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        Train train = new Train();
-        Scanner sc = new Scanner(System.in);
+        System.out.println("=== Train Consist Management App ===");
 
-        while (true) {
-            System.out.println("\n--- Train Consist Management ---");
-            System.out.println("1. Add Coach");
-            System.out.println("2. Remove Coach");
-            System.out.println("3. Display Train");
-            System.out.println("4. Exit");
+        // Create HashMap for bogie-capacity mapping
+        HashMap<String, Integer> bogieCapacity = new HashMap<>();
 
-            int choice = sc.nextInt();
+        // Add bogies with capacities
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 60);
+        bogieCapacity.put("First Class", 40);
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Coach ID: ");
-                    int id = sc.nextInt();
-                    System.out.print("Enter Coach Type: ");
-                    String type = sc.next();
-                    train.addCoach(id, type);
-                    break;
+        // Display all bogies with capacities
+        System.out.println("\nBogie Capacity Details:");
 
-                case 2:
-                    System.out.print("Enter Coach ID to remove: ");
-                    int removeId = sc.nextInt();
-                    train.removeCoach(removeId);
-                    break;
-
-                case 3:
-                    train.displayTrain();
-                    break;
-
-                case 4:
-                    System.exit(0);
-
-                default:
-                    System.out.println("Invalid choice!");
-            }
+        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+            System.out.println("Bogie: " + entry.getKey() +
+                    " | Capacity: " + entry.getValue());
         }
+
+        System.out.println("\nProgram continues...");
     }
 }
