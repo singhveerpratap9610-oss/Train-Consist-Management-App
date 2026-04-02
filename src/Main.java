@@ -1,45 +1,27 @@
-import java.util.Scanner;
+import java.util.HashSet;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        Train train = new Train();
-        Scanner sc = new Scanner(System.in);
+        System.out.println("=== Train Consist Management App ===");
 
-        while (true) {
-            System.out.println("\n--- Train Consist Management ---");
-            System.out.println("1. Add Coach");
-            System.out.println("2. Remove Coach");
-            System.out.println("3. Display Train");
-            System.out.println("4. Exit");
+        // Create HashSet for unique bogie IDs
+        HashSet<String> bogieIds = new HashSet<>();
 
-            int choice = sc.nextInt();
+        // Add bogie IDs (including duplicates)
+        bogieIds.add("BG101");
+        bogieIds.add("BG102");
+        bogieIds.add("BG103");
+        bogieIds.add("BG101"); // duplicate
+        bogieIds.add("BG102"); // duplicate
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Coach ID: ");
-                    int id = sc.nextInt();
-                    System.out.print("Enter Coach Type: ");
-                    String type = sc.next();
-                    train.addCoach(id, type);
-                    break;
+        // Display unique bogie IDs
+        System.out.println("\nBogie IDs after insertion (duplicates ignored):");
+        System.out.println(bogieIds);
 
-                case 2:
-                    System.out.print("Enter Coach ID to remove: ");
-                    int removeId = sc.nextInt();
-                    train.removeCoach(removeId);
-                    break;
-
-                case 3:
-                    train.displayTrain();
-                    break;
-
-                case 4:
-                    System.exit(0);
-
-                default:
-                    System.out.println("Invalid choice!");
-            }
-        }
+        // Program continues
+        System.out.println("\nTotal unique bogies: " + bogieIds.size());
+        System.out.println("System ensures no duplicate bogie IDs.");
     }
 }
