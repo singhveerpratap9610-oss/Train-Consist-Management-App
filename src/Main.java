@@ -1,45 +1,40 @@
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        Train train = new Train();
-        Scanner sc = new Scanner(System.in);
+        System.out.println("=== Train Consist Management App ===");
 
-        while (true) {
-            System.out.println("\n--- Train Consist Management ---");
-            System.out.println("1. Add Coach");
-            System.out.println("2. Remove Coach");
-            System.out.println("3. Display Train");
-            System.out.println("4. Exit");
+        // Create ArrayList for passenger bogies
+        ArrayList<String> passengerBogies = new ArrayList<>();
 
-            int choice = sc.nextInt();
+        // Add bogies
+        passengerBogies.add("Sleeper");
+        passengerBogies.add("AC Chair");
+        passengerBogies.add("First Class");
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Coach ID: ");
-                    int id = sc.nextInt();
-                    System.out.print("Enter Coach Type: ");
-                    String type = sc.next();
-                    train.addCoach(id, type);
-                    break;
+        // Display after insertion
+        System.out.println("\nAfter adding bogies:");
+        System.out.println(passengerBogies);
 
-                case 2:
-                    System.out.print("Enter Coach ID to remove: ");
-                    int removeId = sc.nextInt();
-                    train.removeCoach(removeId);
-                    break;
+        // Remove a bogie (AC Chair)
+        passengerBogies.remove("AC Chair");
 
-                case 3:
-                    train.displayTrain();
-                    break;
+        System.out.println("\nAfter removing AC Chair:");
+        System.out.println(passengerBogies);
 
-                case 4:
-                    System.exit(0);
-
-                default:
-                    System.out.println("Invalid choice!");
-            }
+        // Check if Sleeper exists
+        if (passengerBogies.contains("Sleeper")) {
+            System.out.println("\nSleeper bogie exists in the train.");
+        } else {
+            System.out.println("\nSleeper bogie not found.");
         }
+
+        // Final state
+        System.out.println("\nFinal Train Consist:");
+        System.out.println(passengerBogies);
+
+        System.out.println("\nProgram continues...");
     }
 }
