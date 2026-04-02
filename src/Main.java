@@ -1,45 +1,40 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        Train train = new Train();
-        Scanner sc = new Scanner(System.in);
+        System.out.println("=== Train Consist Management App ===");
 
-        while (true) {
-            System.out.println("\n--- Train Consist Management ---");
-            System.out.println("1. Add Coach");
-            System.out.println("2. Remove Coach");
-            System.out.println("3. Display Train");
-            System.out.println("4. Exit");
+        // Create list of goods bogies
+        List<GoodsBogie> goodsBogies = new ArrayList<>();
 
-            int choice = sc.nextInt();
+        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        goodsBogies.add(new GoodsBogie("Open", "Coal"));
+        goodsBogies.add(new GoodsBogie("Box", "Grain"));
+        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Coach ID: ");
-                    int id = sc.nextInt();
-                    System.out.print("Enter Coach Type: ");
-                    String type = sc.next();
-                    train.addCoach(id, type);
-                    break;
+        // Display bogies
+        System.out.println("\nGoods Bogies:");
+        goodsBogies.forEach(System.out::println);
 
-                case 2:
-                    System.out.print("Enter Coach ID to remove: ");
-                    int removeId = sc.nextInt();
-                    train.removeCoach(removeId);
-                    break;
+        // Safety validation using allMatch()
+        boolean isSafe = goodsBogies.stream()
+                .allMatch(b -> {
+                    if (b.type.equals("Cylindrical")) {
+                        return b.cargo.equals("Petroleum");
+                    }
+                    return true; // other bogies allowed
+                });
 
-                case 3:
-                    train.displayTrain();
-                    break;
-
-                case 4:
-                    System.exit(0);
-
-                default:
-                    System.out.println("Invalid choice!");
-            }
+        // Display result
+        if (isSafe) {
+            System.out.println("\nTrain is SAFE for operation ✅");
+        } else {
+            System.out.println("\nTrain is NOT SAFE ❌");
         }
+
+        System.out.println("\nProgram continues...");
     }
 }
