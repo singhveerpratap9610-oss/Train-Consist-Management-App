@@ -1,45 +1,37 @@
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        Train train = new Train();
-        Scanner sc = new Scanner(System.in);
+        System.out.println("=== Train Consist Management App ===");
 
-        while (true) {
-            System.out.println("\n--- Train Consist Management ---");
-            System.out.println("1. Add Coach");
-            System.out.println("2. Remove Coach");
-            System.out.println("3. Display Train");
-            System.out.println("4. Exit");
+        // Create list of bogies
+        List<Bogie> bogies = new ArrayList<>();
 
-            int choice = sc.nextInt();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 60));
+        bogies.add(new Bogie("Sleeper", 70));   // duplicate type for grouping
+        bogies.add(new Bogie("First Class", 40));
+        bogies.add(new Bogie("AC Chair", 55));
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Coach ID: ");
-                    int id = sc.nextInt();
-                    System.out.print("Enter Coach Type: ");
-                    String type = sc.next();
-                    train.addCoach(id, type);
-                    break;
+        // Display original list
+        System.out.println("\nOriginal Bogies:");
+        bogies.forEach(System.out::println);
 
-                case 2:
-                    System.out.print("Enter Coach ID to remove: ");
-                    int removeId = sc.nextInt();
-                    train.removeCoach(removeId);
-                    break;
+        // Group bogies by type (name)
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(b -> b.name));
 
-                case 3:
-                    train.displayTrain();
-                    break;
+        // Display grouped result
+        System.out.println("\nGrouped Bogies:");
 
-                case 4:
-                    System.exit(0);
-
-                default:
-                    System.out.println("Invalid choice!");
-            }
+        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
+            System.out.println("\nType: " + entry.getKey());
+            entry.getValue().forEach(System.out::println);
         }
+
+        System.out.println("\nProgram continues...");
     }
 }
