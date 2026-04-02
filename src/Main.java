@@ -1,45 +1,52 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        Train train = new Train();
-        Scanner sc = new Scanner(System.in);
+        System.out.println("=== Train Consist Management App ===");
 
-        while (true) {
-            System.out.println("\n--- Train Consist Management ---");
-            System.out.println("1. Add Coach");
-            System.out.println("2. Remove Coach");
-            System.out.println("3. Display Train");
-            System.out.println("4. Exit");
+        // Create large dataset
+        List<Bogie> bogies = new ArrayList<>();
 
-            int choice = sc.nextInt();
+        for (int i = 0; i < 100000; i++) {
+            bogies.add(new Bogie("Sleeper", 72));
+            bogies.add(new Bogie("AC Chair", 60));
+            bogies.add(new Bogie("First Class", 40));
+        }
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Coach ID: ");
-                    int id = sc.nextInt();
-                    System.out.print("Enter Coach Type: ");
-                    String type = sc.next();
-                    train.addCoach(id, type);
-                    break;
+        // 🔹 LOOP-BASED FILTERING
+        long startLoop = System.nanoTime();
 
-                case 2:
-                    System.out.print("Enter Coach ID to remove: ");
-                    int removeId = sc.nextInt();
-                    train.removeCoach(removeId);
-                    break;
-
-                case 3:
-                    train.displayTrain();
-                    break;
-
-                case 4:
-                    System.exit(0);
-
-                default:
-                    System.out.println("Invalid choice!");
+        List<Bogie> loopResult = new ArrayList<>();
+        for (Bogie b : bogies) {
+            if (b.capacity > 60) {
+                loopResult.add(b);
             }
         }
+
+        long endLoop = System.nanoTime();
+        long loopTime = endLoop - startLoop;
+
+        // 🔹 STREAM-BASED FILTERING
+        long startStream = System.nanoTime();
+
+        List<Bogie> streamResult = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+
+        long endStream = System.nanoTime();
+        long streamTime = endStream - startStream;
+
+        // Display results
+        System.out.println("\nLoop Result Size: " + loopResult.size());
+        System.out.println("Stream Result Size: " + streamResult.size());
+
+        System.out.println("\nLoop Execution Time: " + loopTime + " ns");
+        System.out.println("Stream Execution Time: " + streamTime + " ns");
+
+        System.out.println("\nProgram continues...");
     }
 }
