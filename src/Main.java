@@ -1,45 +1,39 @@
-import java.util.Scanner;
+import java.util.LinkedList;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        Train train = new Train();
-        Scanner sc = new Scanner(System.in);
+        System.out.println("=== Train Consist Management App ===");
 
-        while (true) {
-            System.out.println("\n--- Train Consist Management ---");
-            System.out.println("1. Add Coach");
-            System.out.println("2. Remove Coach");
-            System.out.println("3. Display Train");
-            System.out.println("4. Exit");
+        // Create LinkedList for ordered bogies
+        LinkedList<String> train = new LinkedList<>();
 
-            int choice = sc.nextInt();
+        // Add bogies
+        train.add("Engine");
+        train.add("Sleeper");
+        train.add("AC");
+        train.add("Cargo");
+        train.add("Guard");
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Coach ID: ");
-                    int id = sc.nextInt();
-                    System.out.print("Enter Coach Type: ");
-                    String type = sc.next();
-                    train.addCoach(id, type);
-                    break;
+        System.out.println("\nInitial Train Consist:");
+        System.out.println(train);
 
-                case 2:
-                    System.out.print("Enter Coach ID to remove: ");
-                    int removeId = sc.nextInt();
-                    train.removeCoach(removeId);
-                    break;
+        // Insert Pantry Car at position 2
+        train.add(2, "Pantry");
 
-                case 3:
-                    train.displayTrain();
-                    break;
+        System.out.println("\nAfter adding Pantry at position 2:");
+        System.out.println(train);
 
-                case 4:
-                    System.exit(0);
+        // Remove first and last bogie
+        train.removeFirst();
+        train.removeLast();
 
-                default:
-                    System.out.println("Invalid choice!");
-            }
-        }
+        System.out.println("\nAfter removing first and last bogie:");
+        System.out.println(train);
+
+        // Final output
+        System.out.println("\nFinal Ordered Train Consist:");
+        System.out.println(train);
     }
 }
