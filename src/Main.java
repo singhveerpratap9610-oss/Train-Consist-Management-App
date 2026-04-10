@@ -1,45 +1,32 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        Train train = new Train();
-        Scanner sc = new Scanner(System.in);
+        System.out.println("=== Train Consist Management App ===");
 
-        while (true) {
-            System.out.println("\n--- Train Consist Management ---");
-            System.out.println("1. Add Coach");
-            System.out.println("2. Remove Coach");
-            System.out.println("3. Display Train");
-            System.out.println("4. Exit");
+        List<GoodsBogie> bogies = new ArrayList<>();
 
-            int choice = sc.nextInt();
+        GoodsBogie b1 = new GoodsBogie("Cylindrical");
+        GoodsBogie b2 = new GoodsBogie("Rectangular");
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Coach ID: ");
-                    int id = sc.nextInt();
-                    System.out.print("Enter Coach Type: ");
-                    String type = sc.next();
-                    train.addCoach(id, type);
-                    break;
+        bogies.add(b1);
+        bogies.add(b2);
 
-                case 2:
-                    System.out.print("Enter Coach ID to remove: ");
-                    int removeId = sc.nextInt();
-                    train.removeCoach(removeId);
-                    break;
+        // Safe assignment
+        b1.assignCargo("Petroleum");
 
-                case 3:
-                    train.displayTrain();
-                    break;
+        // Unsafe assignment
+        b2.assignCargo("Petroleum");
 
-                case 4:
-                    System.exit(0);
-
-                default:
-                    System.out.println("Invalid choice!");
-            }
+        // Continue program
+        System.out.println("Final Bogie Status:");
+        for (GoodsBogie b : bogies) {
+            System.out.println(b);
         }
+
+        System.out.println("\nProgram continues safely...");
     }
 }
