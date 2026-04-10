@@ -1,45 +1,43 @@
-import java.util.Scanner;
-
 public class Main {
+
     public static void main(String[] args) {
 
-        Train train = new Train();
-        Scanner sc = new Scanner(System.in);
+        System.out.println("=== Train Consist Management App ===");
 
-        while (true) {
-            System.out.println("\n--- Train Consist Management ---");
-            System.out.println("1. Add Coach");
-            System.out.println("2. Remove Coach");
-            System.out.println("3. Display Train");
-            System.out.println("4. Exit");
+        // Passenger bogie capacities
+        int[] capacities = {72, 56, 24, 70, 60};
 
-            int choice = sc.nextInt();
+        System.out.println("\nBefore Sorting:");
+        printArray(capacities);
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Coach ID: ");
-                    int id = sc.nextInt();
-                    System.out.print("Enter Coach Type: ");
-                    String type = sc.next();
-                    train.addCoach(id, type);
-                    break;
+        // 🔹 Bubble Sort
+        int n = capacities.length;
 
-                case 2:
-                    System.out.print("Enter Coach ID to remove: ");
-                    int removeId = sc.nextInt();
-                    train.removeCoach(removeId);
-                    break;
+        for (int i = 0; i < n - 1; i++) {
 
-                case 3:
-                    train.displayTrain();
-                    break;
+            for (int j = 0; j < n - i - 1; j++) {
 
-                case 4:
-                    System.exit(0);
+                if (capacities[j] > capacities[j + 1]) {
 
-                default:
-                    System.out.println("Invalid choice!");
+                    // Swap
+                    int temp = capacities[j];
+                    capacities[j] = capacities[j + 1];
+                    capacities[j + 1] = temp;
+                }
             }
         }
+
+        System.out.println("\nAfter Sorting (Ascending):");
+        printArray(capacities);
+
+        System.out.println("\nProgram continues...");
+    }
+
+    // Helper method
+    public static void printArray(int[] arr) {
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
     }
 }
