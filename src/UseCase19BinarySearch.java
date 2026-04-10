@@ -2,50 +2,44 @@ import java.util.Arrays;
 
 public class UseCase19BinarySearch {
 
-    public static void main(String[] args) {
+    public static boolean binarySearch(String[] bogieIds, String key) {
 
-        // Step 1: Create array (can be unsorted)
-        String[] bogieIds = {"BG309", "BG101", "BG550", "BG205", "BG412"};
+        // Handle empty array
+        if (bogieIds.length == 0) {
+            return false;
+        }
 
-        // Step 2: Sort the array (IMPORTANT for Binary Search)
+        // Sort first (important for binary search)
         Arrays.sort(bogieIds);
 
-        System.out.println("Sorted Bogie IDs: " + Arrays.toString(bogieIds));
-
-        // Step 3: Search key
-        String searchId = "BG309";
-
-        boolean found = binarySearch(bogieIds, searchId);
-
-        // Step 4: Display result
-        if (found) {
-            System.out.println("Bogie ID " + searchId + " found.");
-        } else {
-            System.out.println("Bogie ID " + searchId + " NOT found.");
-        }
-    }
-
-    // Binary Search Method
-    public static boolean binarySearch(String[] arr, String key) {
-
         int low = 0;
-        int high = arr.length - 1;
+        int high = bogieIds.length - 1;
 
         while (low <= high) {
-
             int mid = (low + high) / 2;
 
-            int comparison = arr[mid].compareTo(key);
+            int result = key.compareTo(bogieIds[mid]);
 
-            if (comparison == 0) {
-                return true; // found
-            } else if (comparison < 0) {
-                low = mid + 1; // search right
+            if (result == 0) {
+                return true;
+            } else if (result < 0) {
+                high = mid - 1;
             } else {
-                high = mid - 1; // search left
+                low = mid + 1;
             }
         }
 
-        return false; // not found
+        return false;
+    }
+
+    public static void main(String[] args) {
+
+        String[] bogieIds = {"BG309", "BG101", "BG550", "BG205", "BG412"};
+        String searchKey = "BG205";
+
+        boolean found = binarySearch(bogieIds, searchKey);
+
+        System.out.println("Sorted Bogie IDs: " + Arrays.toString(bogieIds));
+        System.out.println("Search Result for " + searchKey + ": " + found);
     }
 }
